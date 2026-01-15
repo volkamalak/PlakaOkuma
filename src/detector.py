@@ -3,17 +3,23 @@ from ultralytics import YOLO
 import os
 
 class PlateDetector:
-    def __init__(self, model_path='yolov8n.pt'):
+    def __init__(self, model_path=None):
         """
         Initializes the PlateDetector with a YOLOv8 model.
 
         Args:
             model_path (str): Path to the .pt model file.
-                              Default is 'yolov8n.pt' (standard COCO model).
-                              For best results, train a model on license plates
-                              and use the path to 'best.pt'.
+                              If None, checks for 'best.pt', then defaults to 'yolov8n.pt'.
         """
-        if not os.path.exists(model_path) and not model_path.endswith('.pt'):
+        if model_path is None:
+            if os.path.exists('best.pt'):
+                model_path = 'best.pt'
+            elif os.path.exists('models/best.pt'):
+                model_path = 'models/best.pt'
+            else:
+                model_path = 'yolov8n.pt'
+
+        if not os.path.exists(model_path) and not model_path.endswith('.pt') and not model_path.startswith('yolov8'):
              # Ultralytics will download standard models automatically,
              # but custom paths must exist.
              raise FileNotFoundError(f"Model file not found: {model_path}")

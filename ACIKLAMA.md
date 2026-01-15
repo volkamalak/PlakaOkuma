@@ -58,3 +58,19 @@ train_model('veri_seti/data.yaml', epochs=100)
 2. **Kırpma (Cropping):** Tespit edilen alan orijinal resimden kırpılır.
 3. **Okuma (OCR):** `PlateReader` sınıfı, kırpılan bu görüntüyü alır. Önce gri tonlamaya çevirerek işler, ardından EasyOCR kütüphanesi ile üzerindeki yazıyı okur.
 4. **Sonuç:** Okunan plaka metni ve çizilen kutucuk resim üzerine işlenir ve kaydedilir.
+
+## Arayüz (GUI) Uygulaması
+
+Masaüstü uygulaması olarak çalıştırmak için `gui.py` dosyasını kullanabilirsiniz. Bu arayüz, resim yükleyip anlık olarak plaka tespiti yapmanızı sağlar.
+
+### Başlatma
+
+```bash
+python gui.py
+```
+
+### Özellikler
+- **Resim Yükle:** Sol panelde orijinal resmi gösterir.
+- **Tespit Et:** YOLO modelini kullanarak plakayı bulur, çerçeve içine alır ve sağ panelde gösterir.
+- **Bilgi Ekranı:** Alt kısımda işlemin ne kadar sürdüğünü ve plaka koordinatlarını gösterir.
+- **Model:** Uygulama, varsa `best.pt` veya `models/best.pt` dosyasını otomatik kullanır. Yoksa `yolov8n.pt` indirir.
